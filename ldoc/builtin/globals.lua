@@ -100,12 +100,13 @@ local function function_ref (name,tbl)
          return nil
       end
    end
-   if tbl == 'file' then -- special case: file objects!
+   if tbl == 'file' or tbl == 'io.File' then -- special case: file object methods!
+      -- (...which we let the user type either as file:method_name or io.File:method_name.)
       if not file_methods[name] then
         return nil
       end
-      name = 'file:'..name
-      href = fun_ref..name
+      href = fun_ref..'file:'..name
+      name = tbl..':'..name
    elseif tables[tbl] then -- function inside standard Lua table
       local t = rawget(_G,tbl) -- do a quick sanity check
       if not rawget(t,name) then
