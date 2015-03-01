@@ -293,7 +293,7 @@ local function markdown_processor(ldoc, formatter)
             txt = process_multiline_markdown(ldoc, txt, item, item.filename, deflang)
         end
       else
-         txt = resolve_inline_references(ldoc, txt, item)
+         txt = process_multiline_markdown(ldoc, txt, nil, '[dummyfile]', 'lua')
       end
       txt = formatter(txt)
       -- We will add our own paragraph tags, if needed.
